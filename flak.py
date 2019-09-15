@@ -65,7 +65,7 @@ def clear():
     lap_lock.release()
     lock.acquire()
     num = 0
-    socketio.emit('num', {'num': num}, broadcast = True)
+    socketio.emit('data', {'num': num, 'laps': laps}, broadcast = True)
     lock.release()
 
 def count():
