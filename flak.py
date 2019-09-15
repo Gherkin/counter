@@ -37,6 +37,7 @@ def reset():
     global num
     lock.acquire()
     num = 0
+    socketio.emit('num', {'num': num}, broadcast = True)
     lock.release()
 
 @socketio.on('connect')
@@ -53,6 +54,7 @@ def lap():
     lap_lock.release()
     lock.acquire()
     num = 0
+    socketio.emit('data', {'num': num, 'laps': laps}, broadcast = True)
     lock.release()
 
 @socketio.on('clear')
@@ -63,6 +65,7 @@ def clear():
     lap_lock.release()
     lock.acquire()
     num = 0
+    socketio.emit('num', {'num': num}, broadcast = True)
     lock.release()
 
 def count():
@@ -74,7 +77,7 @@ def count():
         lock.acquire()
         num += 1
         lock.release()
-        socketio.emit('num', {'num': str(num)}, broadcast = True)
+        socketio.emit('num', {'num': num}, broadcast = True)
         time.sleep(0.01)
 
 if __name__ == '__main__':
