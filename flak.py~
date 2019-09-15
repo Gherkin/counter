@@ -1,0 +1,8 @@
+from flask import Flask, escape, request
+
+app = Flask(__name__)
+current = 0
+
+@app.route('/')
+def hello():
+    return str(current)
