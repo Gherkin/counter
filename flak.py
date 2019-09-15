@@ -74,6 +74,7 @@ def count():
         if(btn.value == 1 or btn.value == state):
             state = btn.value
             continue
+        state = btn.value
         print('yo')
         global num
         lock.acquire()
