@@ -1,6 +1,7 @@
 from flask import Flask, escape, request
 from flask_socketio import SocketIO, emit
 from threading import Thread, Lock
+from gpiozero import Button
 import time
 
 app = Flask(__name__)
@@ -9,6 +10,8 @@ lock = Lock()
 num = 0
 lap_lock = Lock()
 laps = []
+
+btn = Button(2)
 
 @app.route('/')
 def index():
@@ -64,12 +67,14 @@ def clear():
 
 def count():
     print('yo')
+    if(btn.value == 1):
+        return
     global num
     lock.acquire()
     num += 1
-    socketio.emit('num', {'num': str(num)}, broadcast = True)
     lock.release()
-    time.sleep(1)
+    socketio.emit('num', {'num': str(num)}, broadcast = True)
+    time.sleep(0.01)
     count()
 
 if __name__ == '__main__':
