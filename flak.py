@@ -69,8 +69,9 @@ def clear():
     lock.release()
 
 def count():
+    state = btn.value
     while True:
-        if(btn.value == 1):
+        if(btn.value == 1 or btn.value == state):
             continue
         print('yo')
         global num
