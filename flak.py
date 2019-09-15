@@ -66,7 +66,9 @@ def clear():
     lock.release()
 
 def count():
-    if(btn.value == 1):
+    while True:
+        if(btn.value == 1):
+            continue
         print('yo')
         global num
         lock.acquire()
@@ -74,7 +76,6 @@ def count():
         lock.release()
         socketio.emit('num', {'num': str(num)}, broadcast = True)
         time.sleep(0.01)
-    count()
 
 if __name__ == '__main__':
     socketio.run(app)
