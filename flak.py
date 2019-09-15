@@ -66,15 +66,14 @@ def clear():
     lock.release()
 
 def count():
-    print('yo')
     if(btn.value == 1):
-        return
-    global num
-    lock.acquire()
-    num += 1
-    lock.release()
-    socketio.emit('num', {'num': str(num)}, broadcast = True)
-    time.sleep(0.01)
+        print('yo')
+        global num
+        lock.acquire()
+        num += 1
+        lock.release()
+        socketio.emit('num', {'num': str(num)}, broadcast = True)
+        time.sleep(0.01)
     count()
 
 if __name__ == '__main__':
